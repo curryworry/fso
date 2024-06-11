@@ -14,14 +14,13 @@ const Total = ({text,value}) => {
     )
 }
 
-
-
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
-
+  const average = (good*1) + (neutral*0) + (bad*-1);
+  const positive = `${good/(good+neutral+bad)*100}%`;
   const handleClick = ({text}) => {
     console.log('button clicked, value is',text);
     if(text=='good'){
@@ -46,6 +45,9 @@ const App = () => {
       <Total text='good' value={good}/>
       <Total text='neutral' value={neutral}/>
       <Total text='bad' value={bad}/>
+      <Total text='all' value={good+neutral+bad}/>
+      <Total text ='average' value={average}/>
+      <Total text='positive' value={positive}/>
     </div>
   )
 }
