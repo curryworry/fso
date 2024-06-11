@@ -20,16 +20,20 @@ const Statistics = ({details}) => {
     console.log('good is',details.good);
     const average = (details.good*1) + (details.neutral*0) + (details.bad*-1);
     const positive = `${details.good/(details.good+details.neutral+details.bad)*100}%`;
+    const total = details.good+details.neutral+details.bad;
+    if(total>0){
     return (
       <div>
         <StatisticLine text='good' value={details.good}/>
         <StatisticLine text='neutral' value={details.neutral}/>
         <StatisticLine text='bad' value={details.bad}/>
-        <StatisticLine text='all' value={details.good+details.neutral+details.bad}/>
+        <StatisticLine text='all' value={total}/>
         <StatisticLine text ='average' value={average}/>
         <StatisticLine text='positive' value={positive}/>
       </div>  
     )
+    }
+    return (<div>No feedback given</div>)
 }
 
 const App = () => {
