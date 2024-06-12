@@ -1,5 +1,9 @@
 import { useState } from 'react'
 
+const Heading = ({text}) => {
+  return <div><h2>{text}</h2></div>
+}
+
 const Button = ({clickHandler, text}) => {
   return (<button onClick={clickHandler}>{text}</button>)
 }
@@ -35,6 +39,8 @@ const App = () => {
   const [votes, setVotes] = useState(new Uint8Array(anecdotes.length));
   //console.log(votes);
   //console.log('anecdotes.length is ',anecdotes.length);
+  const mostVoted = votes.indexOf(Math.max(...votes));
+  //console.log(mostVoted);
 
   const randomAnecdote = () => {
     let randomNumber = Math.floor(Math.random()*anecdotes.length);
@@ -52,10 +58,13 @@ const App = () => {
 
   return (
     <div>
+      <Heading text='Anecdote of the day'/>
       <Anecdote number={selected} anecdotes={anecdotes}/>
       <Stats count={votes[selected]}/>
       <Button text='vote' clickHandler={vote}/>
       <Button text='next anecdote' clickHandler={randomAnecdote}/>
+      <Heading text='Most voted anecdote'/>
+      <Anecdote number={mostVoted} anecdotes={anecdotes}></Anecdote>
     </div>
   )
 }
