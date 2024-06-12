@@ -65,6 +65,7 @@ const App = () => {
       <Button text='next anecdote' clickHandler={randomAnecdote}/>
       <Heading text='Most voted anecdote'/>
       <Anecdote number={mostVoted} anecdotes={anecdotes}></Anecdote>
+      <Stats count={votes[mostVoted]}/>
     </div>
   )
 }
