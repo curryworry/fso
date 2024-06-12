@@ -12,7 +12,10 @@ const StatisticLine = ({text,value}) => {
     //console.log('text is ',text);
     //console.log('value is', value);
     return (
-        <div>{text} {value}</div>
+      <tr>
+        <td>{text} </td>
+        <td>{value}</td>
+      </tr>
     )
 }
 
@@ -24,12 +27,16 @@ const Statistics = ({details}) => {
     if(total>0){
     return (
       <div>
+        <table>
+        <tbody>
         <StatisticLine text='good' value={details.good}/>
         <StatisticLine text='neutral' value={details.neutral}/>
         <StatisticLine text='bad' value={details.bad}/>
         <StatisticLine text='all' value={total}/>
         <StatisticLine text ='average' value={average}/>
         <StatisticLine text='positive' value={positive}/>
+        </tbody>
+        </table>
       </div>  
     )
     }
