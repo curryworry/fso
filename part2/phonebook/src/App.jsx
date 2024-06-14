@@ -14,8 +14,15 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newPersons =[...persons]
-    console.log('newPersons is',newPersons);
-    setPersons(newPersons.concat({name: newName}))
+    /*
+    This works, but some is more elegant
+    const nameCheck=newPersons.map(person=>person.name)
+    const existingUser = nameCheck.includes(newName)
+    */
+    const existingUser = newPersons.some(person=>person.name===newName)
+    existingUser
+      ?alert(`${newName} has already been added to phone book`)
+      :setPersons(newPersons.concat({name: newName}))
   }
 
   return (
