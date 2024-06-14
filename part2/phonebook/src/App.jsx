@@ -6,12 +6,17 @@ const App = () => {
   ]) 
   const [newName, setNewName] = useState('')
 
+  const handleNameChange = (e) => {
+    console.log(e.target.value)
+    setNewName(e.target.value)
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
       <form>
         <div>
-          name: <input />
+          name: <input onChange={handleNameChange}/>
         </div>
         <div>
           <button type="submit">add</button>
