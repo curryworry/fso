@@ -63,7 +63,7 @@ const App = () => {
     e.preventDefault();
     const newPersons =[...persons]
     /*
-    This works, but some is more elegant
+    This works, but 'some()' is more elegant
     const nameCheck=newPersons.map(person=>person.name)
     const existingUser = nameCheck.includes(newName)
     */
