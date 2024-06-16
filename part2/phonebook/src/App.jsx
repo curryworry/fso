@@ -24,11 +24,12 @@ const PersonForm = ({submitHandler,nameHandler,numberHandler}) => {
 }
 
 const Display = ({filteredPersons}) => {
+  
   const deletePerson = (id,name) => {
-    confirm(`Delete ${name}?`)?
-    phoneService.deleteRecord(id)
-    :console.log('cancelled')
+  const confirmation = confirm(`Delete ${name}?`)
+  if(confirmation){phoneService.deleteRecord(id)}
   }
+
   return (
     <div>
         {filteredPersons.map(person => <div key={person.name}>{person.name} {person.number} <button onClick={()=>deletePerson(person.id,person.name)}>delete</button></div>)}
@@ -78,9 +79,11 @@ const App = () => {
     const nameCheck=newPersons.map(person=>person.name)
     const existingUser = nameCheck.includes(newName)
     */
-    const existingUser = newPersons.some(person=>person.name===newName)
+    const existingUser = newPersons.find(person=>person.name===newName)
     if(existingUser){
-      alert(`${newName} has already been added to phone book`)
+      const confirmation = confirm(`${existingUser.name} already exists. Update number?`)
+      console.log(existingUser);
+      if(confirmation){phoneService.update(existingUser.id, {name: existingUser.name,number: newNumber,id: existingUser.id})}
     }
     else{
       phoneService
