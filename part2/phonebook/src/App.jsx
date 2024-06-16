@@ -76,9 +76,18 @@ const App = () => {
     const existingUser = nameCheck.includes(newName)
     */
     const existingUser = newPersons.some(person=>person.name===newName)
-    existingUser
-      ?alert(`${newName} has already been added to phone book`)
-      :setPersons(newPersons.concat({name: newName,number: newNumber,id:`${persons.length+1}`})),setFilteredPersons(newPersons.concat({name: newName,number: newNumber,id:`${filteredPersons.length+1}`}))
+    if(existingUser){
+      alert(`${newName} has already been added to phone book`)
+    }
+    else{
+      
+      axios
+      .post('http://localhost:3001/persons',{name: newName,number: newNumber,id:`${persons.length+1}`})
+      .then(response => {
+        setPersons(newPersons.concat(response.data))
+        setFilteredPersons(newPersons.concat(response.data))
+      })
+    }
   }
 
     return (
