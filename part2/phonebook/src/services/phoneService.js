@@ -13,4 +13,10 @@ const create = (phoneRecord) => {
     .then(response=>response.data)
 }
 
-export default {getAll, create}
+const deleteRecord = (id) => {
+    return axios
+    .delete(`${baseUrl}/${id}`)
+    //.then(response=>console.log(response.data))
+}
+
+export default {getAll, create, deleteRecord}

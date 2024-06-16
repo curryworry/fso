@@ -24,9 +24,14 @@ const PersonForm = ({submitHandler,nameHandler,numberHandler}) => {
 }
 
 const Display = ({filteredPersons}) => {
+  const deletePerson = (id,name) => {
+    confirm(`Delete ${name}?`)?
+    phoneService.deleteRecord(id)
+    :console.log('cancelled')
+  }
   return (
     <div>
-        {filteredPersons.map(person => <div key={person.name}>{person.name} {person.number}</div>)}
+        {filteredPersons.map(person => <div key={person.name}>{person.name} {person.number} <button onClick={()=>deletePerson(person.id,person.name)}>delete</button></div>)}
       </div>
   )
 }
@@ -46,6 +51,7 @@ const App = () => {
       setFilteredPersons(allRecords)
     })
     ,[]})
+
 
   const handleSearch = (e) => {
     let search = e.target.value;
