@@ -8,6 +8,11 @@ const Filter = ({changeHandler}) => {
   </div>)
 }
 
+const Message = ({message}) => {
+
+  return(<div className='message'>{message}</div>)
+}
+
 const PersonForm = ({submitHandler,nameHandler,numberHandler}) => {
  return ( <form onSubmit={submitHandler}>
         <div>
@@ -45,6 +50,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   //const [search, setSearch] = useState('')
+
+  const [message, setMessage] = useState(null)
 
   useEffect(()=>{
     phoneService.getAll().then(allRecords=>{
@@ -91,6 +98,10 @@ const App = () => {
       .then(newRecord=>{
         setPersons(newPersons.concat(newRecord))
         setFilteredPersons(newPersons.concat(newRecord))
+        setMessage(`Added ${newName}`)
+        setTimeout(()=>{
+          setMessage(null)
+        },3000)
       })
     }
   }
@@ -99,6 +110,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Filter changeHandler={handleSearch}/>
+      <Message message={message}/>
       <h2>Add A New Entry</h2>
       <PersonForm submitHandler={handleSubmit} nameHandler={handleNameChange} numberHandler={handleNumberChange}/>
       <h2>Numbers</h2>
