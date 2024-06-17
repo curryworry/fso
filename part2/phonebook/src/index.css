@@ -1,7 +1,15 @@
-.message{
+.success{
     color: green;
     font-size: 25px;
     padding: 5px;
     background: lightgrey;
     border: 1px solid green;
+}
+
+.error{
+    color: red;
+    font-size: 25px;
+    padding: 5px;
+    background: lightgrey;
+    border: 1px solid red;
 }

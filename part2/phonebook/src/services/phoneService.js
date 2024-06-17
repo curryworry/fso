@@ -16,7 +16,7 @@ const create = (phoneRecord) => {
 const deleteRecord = (id) => {
     return axios
     .delete(`${baseUrl}/${id}`)
-    //.then(response=>console.log(response.data))
+    .then(response=>response.data)
 }
 
 const update = (id, newObject) => {

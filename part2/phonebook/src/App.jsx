@@ -8,9 +8,9 @@ const Filter = ({changeHandler}) => {
   </div>)
 }
 
-const Message = ({message}) => {
+const Message = ({message, messageType}) => {
 
-  return(<div className='message'>{message}</div>)
+  return(<div className={messageType}>{message}</div>)
 }
 
 const PersonForm = ({submitHandler,nameHandler,numberHandler}) => {
@@ -28,11 +28,34 @@ const PersonForm = ({submitHandler,nameHandler,numberHandler}) => {
       </form> )
 }
 
-const Display = ({filteredPersons}) => {
+const Display = ({filteredPersons, setMessage, setMessageType}) => {
   
   const deletePerson = (id,name) => {
   const confirmation = confirm(`Delete ${name}?`)
-  if(confirmation){phoneService.deleteRecord(id)}
+  if(confirmation){
+    phoneService
+    .deleteRecord(id)
+    .then(deletedUser=>{
+      setMessage(`Information of ${deletedUser.name} has been removed from server`)
+      setMessageType('success')
+      setTimeout(()=>{
+        setMessage(null)
+        setMessageType(null)
+      },3000)
+    }
+    )
+    // eslint-disable-next-line no-unused-vars
+    .catch(error => {
+      setMessage(`Information of ${name} has ALREADY been removed from server`)
+      setMessageType('error')
+      setTimeout(()=>{
+        setMessage(null)
+        setMessageType(null)
+      },3000)
+    }
+    )
+  }
+
   }
 
   return (
@@ -52,6 +75,7 @@ const App = () => {
   //const [search, setSearch] = useState('')
 
   const [message, setMessage] = useState(null)
+  const [messageType, setMessageType] = useState(null)
 
   useEffect(()=>{
     phoneService.getAll().then(allRecords=>{
@@ -95,8 +119,10 @@ const App = () => {
         .update(existingUser.id, {name: existingUser.name,number: newNumber,id: existingUser.id})
         .then(existingUser=>{
           setMessage(`Updated ${existingUser.name}`)
+          setMessageType('success')
           setTimeout(()=>{
             setMessage(null)
+            setMessageType(null)
           },3000)
         })  
         
@@ -109,8 +135,10 @@ const App = () => {
         setPersons(newPersons.concat(newRecord))
         setFilteredPersons(newPersons.concat(newRecord))
         setMessage(`Added ${newName}`)
+        setMessageType('success')
         setTimeout(()=>{
           setMessage(null)
+          setMessageType(null)
         },3000)
       })
     }
@@ -120,11 +148,11 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Filter changeHandler={handleSearch}/>
-      <Message message={message}/>
+      <Message message={message} messageType={messageType}/>
       <h2>Add A New Entry</h2>
       <PersonForm submitHandler={handleSubmit} nameHandler={handleNameChange} numberHandler={handleNumberChange}/>
       <h2>Numbers</h2>
-      <Display filteredPersons={filteredPersons}/>
+      <Display filteredPersons={filteredPersons} setMessage={setMessage} setMessageType={setMessageType}/>
     </div>
   )
 }
