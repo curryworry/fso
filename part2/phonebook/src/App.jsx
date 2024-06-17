@@ -90,7 +90,17 @@ const App = () => {
     if(existingUser){
       const confirmation = confirm(`${existingUser.name} already exists. Update number?`)
       console.log(existingUser);
-      if(confirmation){phoneService.update(existingUser.id, {name: existingUser.name,number: newNumber,id: existingUser.id})}
+      if(confirmation){
+        phoneService
+        .update(existingUser.id, {name: existingUser.name,number: newNumber,id: existingUser.id})
+        .then(existingUser=>{
+          setMessage(`Updated ${existingUser.name}`)
+          setTimeout(()=>{
+            setMessage(null)
+          },3000)
+        })  
+        
+      }
     }
     else{
       phoneService

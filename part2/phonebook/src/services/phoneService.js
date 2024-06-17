@@ -22,7 +22,7 @@ const deleteRecord = (id) => {
 const update = (id, newObject) => {
     return axios.
     put(`${baseUrl}/${id}`,newObject)
-    .then(response=>console.log(response))
+    .then(response=>response.data)
 }
 
 export default {getAll, create, deleteRecord, update}
