@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+const api_key = import.meta.env.VITE_SOME_KEY
+
 const Weather = ({country}) => {
   console.log('singlecountry',country)
   const [lat, setLat] = useState(0)
   const [long, setLong] = useState(0)
   useEffect(()=>{
     axios
-    .get(`http://api.openweathermap.org/geo/1.0/direct?q=${country.capital},{},${country.cca3}&limit=1&appid=b306cc2322fe3d1a9ac2e689ba78c652`)
+    .get(`http://api.openweathermap.org/geo/1.0/direct?q=${country.capital},{},${country.cca3}&limit=1&appid=${api_key}`)
     .then(response=>{
       setLat(response.data[0].lat)
       setLong(response.data[0].lon)
     })
   },[country.capital, country.cca3, lat, long])
+  
   return (
     <div>{lat},{long}</div>
   )
