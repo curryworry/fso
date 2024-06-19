@@ -3,6 +3,22 @@ import axios from 'axios'
 
 
 
+const CountryDetails = ({country}) => {
+  const languages = Object.values(country.languages)
+    return(
+      <div>
+        <h2>{country.name.common}</h2>
+        <p>capital {country.capital}</p>
+        <p>area {country.area}</p>
+        <h3>languages:</h3>
+        <ul>
+          {languages.map(language=><li key={language}>{language}</li>)}
+        </ul>
+        <img src={country.flags.png} alt="" />
+      </div>
+    )
+}
+
 const Display = ({countryList, setFilteredArray, allCountries}) => {
   const [singleCountry, setSingleCountry] = useState({})
   //console.log('DIsplay countrylist',countryList)
@@ -39,19 +55,10 @@ const Display = ({countryList, setFilteredArray, allCountries}) => {
   if(countryList.length==1){
     //console.log('singleCountry',singleCountry)
     if(Object.keys(singleCountry).length>0){
-    const languages = Object.values(singleCountry.languages)
-    return(
-      <div>
-        <h2>{singleCountry.name.common}</h2>
-        <p>capital {singleCountry.capital}</p>
-        <p>area {singleCountry.area}</p>
-        <h3>languages:</h3>
-        <ul>
-          {languages.map(language=><li key={language}>{language}</li>)}
-        </ul>
-        <img src={singleCountry.flags.png} alt="" />
-      </div>
-    )}
+      return(
+        <CountryDetails country={singleCountry}/>
+      )
+    }
   }
 }
 
