@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const Display = ({countryList}) => {
+
+
+const Display = ({countryList, setFilteredArray, allCountries}) => {
   const [singleCountry, setSingleCountry] = useState({})
   //console.log('DIsplay countrylist',countryList)
   //console.log('re-rendered');
@@ -20,13 +22,18 @@ const Display = ({countryList}) => {
     }
   },[countryList])
 
+  const handleShow = (countryCode) => {
+    //console.log(countryCode)
+    setFilteredArray(allCountries.filter(country=>country.cca3===countryCode))
+  }
+
   if(countryList.length>10){
     return(<div>Too many matches, specify another filter</div>)
   }
   if(countryList.length>1){
   return(
     <div>
-      {countryList.map(country=> <div key={country.cca3}>{country.name.common}</div>)}
+      {countryList.map(country=> <div key={country.cca3}>{country.name.common}<button onClick={()=>handleShow(country.cca3)}>show</button></div>)}
     </div>
   )}
   if(countryList.length==1){
@@ -85,7 +92,7 @@ const App = () => {
         </div>
       </form> 
       <div>
-        <Display countryList={filteredArray}/>
+        <Display countryList={filteredArray} setFilteredArray={setFilteredArray} allCountries={allCountries}/>
       </div> 
     </>
   )
