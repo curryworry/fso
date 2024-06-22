@@ -4,7 +4,7 @@ import axios from 'axios'
 const api_key = import.meta.env.VITE_SOME_KEY
 
 const Weather = ({country}) => {
-  console.log('singlecountry',country)
+  //console.log('singlecountry',country)
   const [lat, setLat] = useState(0)
   const [long, setLong] = useState(0)
   const [weather, setWeather] = useState({})
@@ -21,7 +21,7 @@ const Weather = ({country}) => {
     axios
     .get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${api_key}&units=metric`)
     .then(response=>{
-      console.log(response.data)
+      //console.log(response.data)
       setWeather({
         temperature: response.data.main.feels_like,
         wind: response.data.wind.speed,
