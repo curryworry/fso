@@ -82,7 +82,7 @@ const App = () => {
       setPersons(allRecords)
       setFilteredPersons(allRecords)
     })
-    ,[]})
+  },[])
 
 
   const handleSearch = (e) => {
